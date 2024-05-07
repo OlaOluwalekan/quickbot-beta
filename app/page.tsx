@@ -1,10 +1,10 @@
-import LinkBtn from '@/components/buttons/LinkBtn'
-import Image from 'next/image'
+import Logo from '@/components/logo/Logo'
+import LinkBtn from '@/components/ui/buttons/LinkBtn'
 
 const HomePage = () => {
   return (
     <div className='w-screen h-screen flex flex-col justify-center items-center bg-base-100'>
-      <Image src='/quick-logo.png' alt='Quick Logo' width='290' height='119' />
+      <Logo size='large' />
       <p className='w-[90%] text-center text-base-content my-5 w-max-[400]'>
         Unlock the power of instant assistance with Quick Bot, your friendly AI
         chatbot designed to streamline your tasks and boost productivity.
