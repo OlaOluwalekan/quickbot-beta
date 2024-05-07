@@ -8,6 +8,8 @@ const RegisterPage = () => {
       <AuthCard
         page='Register'
         headerText='Create your account in one simple click'
+        backText='Already have an account'
+        backLink='login'
       >
         <RegisterForm />
       </AuthCard>

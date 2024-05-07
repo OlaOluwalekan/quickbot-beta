@@ -14,7 +14,7 @@ const RegisterForm = () => {
         placeholder='Confirm Password'
         icons={<FaKey />}
       />
-      <Button type='submit' size='full' />
+      <Button type='submit' size='full' text='Register' />
     </form>
   )
 }
