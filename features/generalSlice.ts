@@ -5,7 +5,7 @@ interface stateProps {
 }
 
 const initialSate: stateProps = {
-  theme: 'light',
+  theme: 'dracula',
 }
 
 const generalSlice = createSlice({
@@ -17,5 +17,7 @@ const generalSlice = createSlice({
     },
   },
 })
+
+export const { changeTheme } = generalSlice.actions
 
 export default generalSlice.reducer

@@ -17,7 +17,30 @@ const config: Config = {
   },
   plugins: [require('daisyui')],
   daisyui: {
-    themes: ['light', 'cupcake', 'dracula', 'black'],
+    themes: [
+      {
+        light: {
+          primary: '#4338ca',
+          'primary-content': 'white',
+          'base-100': '#f8fafc',
+        },
+      },
+      'cupcake',
+      {
+        dracula: {
+          primary: '#0A0D2C',
+          'primary-content': 'white',
+          'base-100': '#0B0C1E',
+        },
+      },
+      {
+        black: {
+          primary: 'black',
+          'primary-content': 'white',
+          'base-100': '#0c0a09',
+        },
+      },
+    ],
   },
 }
 export default config

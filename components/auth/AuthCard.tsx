@@ -25,10 +25,11 @@ const AuthCard = ({
         <h2 className='text-2xl font-bold text-primary my-2 md:text-5xl'>
           {page}
         </h2>
-        <p className='text-secondary my-3 md:text-xl'>{headerText}</p>
+        <p className='my-3 md:text-xl text-primary'>{headerText}</p>
       </div>
       <div className='w-full flex justify-center items-center'>
-        <div className='w-[90%] max-w-[400px] p-5 bg-accent'>
+        {/* CARD CHILDREN */}
+        <div className='w-[90%] max-w-[400px] p-5'>
           {children}
           <article className='flex justify-center items-center text-sm my-2 gap-1 text-base-content'>
             {backText}?
