@@ -5,10 +5,12 @@ import { ReactNode, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const { theme } = useSelector((store: RootState) => store.general)
+  const { theme, themeIsOpen } = useSelector(
+    (store: RootState) => store.general
+  )
 
-  //   console.log(theme)
   useEffect(() => {
+    console.log(themeIsOpen)
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
 

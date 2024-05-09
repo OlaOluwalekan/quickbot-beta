@@ -22,6 +22,7 @@ const config: Config = {
         light: {
           primary: '#4338ca',
           'primary-content': 'white',
+          'accent': '#261D86',
           'base-100': '#f8fafc',
         },
       },
@@ -30,6 +31,7 @@ const config: Config = {
         dracula: {
           primary: '#0A0D2C',
           'primary-content': 'white',
+          'accent': '0E144C',
           'base-100': '#0B0C1E',
         },
       },
@@ -37,6 +39,7 @@ const config: Config = {
         black: {
           primary: 'black',
           'primary-content': 'white',
+          'accent': '212123',
           'base-100': '#0c0a09',
         },
       },
