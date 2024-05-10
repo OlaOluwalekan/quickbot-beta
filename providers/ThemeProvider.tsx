@@ -10,7 +10,6 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   )
 
   useEffect(() => {
-    console.log(themeIsOpen)
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
 

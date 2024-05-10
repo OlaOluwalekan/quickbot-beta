@@ -33,12 +33,11 @@ const Theme = () => {
   ]
 
   return (
-    <div className='absolute bottom-20'>
+    <div className='absolute bottom-20 right-2'>
       <div className=''>
         <button
-          className='m-1 btn bg-primary'
+          className='m-1 btn bg-primary text-primary-content'
           onClick={() => {
-            console.log(themeIsOpen)
             dispatch(toggleThemeOpen(!themeIsOpen))
           }}
         >
@@ -48,7 +47,7 @@ const Theme = () => {
           {theme === 'cupcake' && <BiSun />}
         </button>
         {themeIsOpen && (
-          <ul className='p-2 shadow z-[1] rounded-box w-[150px] bg-primary ml-2 absolute bottom-[60px]'>
+          <ul className='p-2 shadow z-[1] rounded-box w-[150px] bg-primary ml-2 absolute bottom-[60px] right-2'>
             {themes.map((theme: any) => {
               return <ThemeIcon key={theme.name} {...theme} />
             })}
@@ -57,31 +56,6 @@ const Theme = () => {
       </div>
     </div>
   )
-  // return (
-  //   <div className='absolute bottom-20'>
-  //     <details className='dropdown dropdown-top'>
-  //       <summary
-  //         className='m-1 btn bg-primary'
-  //         onClick={() => {
-  //           console.log(themeIsOpen)
-  //           dispatch(toggleThemeOpen(!themeIsOpen))
-  //         }}
-  //       >
-  //         {theme === 'light' && <FaSun />}
-  //         {theme === 'black' && <FaMoon />}
-  //         {theme === 'dracula' && <BiMoon />}
-  //         {theme === 'cupcake' && <BiSun />}
-  //       </summary>
-  //       {themeIsOpen && (
-  //         <ul className='p-2 shadow menu dropdown-content z-[1] rounded-box w-[150px] bg-primary ml-2'>
-  //           {themes.map((theme: any) => {
-  //             return <ThemeIcon key={theme.name} {...theme} />
-  //           })}
-  //         </ul>
-  //       )}
-  //     </details>
-  //   </div>
-  // )
 }
 
 export default Theme

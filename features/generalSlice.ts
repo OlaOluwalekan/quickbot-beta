@@ -1,13 +1,19 @@
+'use client'
+
+import { addToLocalStorage, getFromLocalStorage } from '@/utils/localStorage'
 import { createSlice } from '@reduxjs/toolkit'
 
 interface stateProps {
-  theme: 'cupcake' | 'dracula' | 'light' | 'black'
+  // theme: 'cupcake' | 'dracula' | 'light' | 'black'
+  theme: string
   themeIsOpen: boolean
+  mobileNavIsOpen: boolean
 }
 
 const initialSate: stateProps = {
-  theme: 'dracula',
+  theme: getFromLocalStorage('theme') || 'light',
   themeIsOpen: false,
+  mobileNavIsOpen: false,
 }
 
 const generalSlice = createSlice({
@@ -16,17 +22,18 @@ const generalSlice = createSlice({
   reducers: {
     changeTheme: (state, action) => {
       state.theme = action.payload
+      addToLocalStorage('theme', action.payload)
     },
     toggleThemeOpen: (state, { payload }: { payload: boolean }) => {
-      // if (payload) {
       state.themeIsOpen = payload
-      // } else {
-      //   state.themeIsOpen = !state.themeIsOpen
-      // }
+    },
+    toggleMobileNav: (state, { payload }) => {
+      state.mobileNavIsOpen = payload
     },
   },
 })
 
-export const { changeTheme, toggleThemeOpen } = generalSlice.actions
+export const { changeTheme, toggleThemeOpen, toggleMobileNav } =
+  generalSlice.actions
 
 export default generalSlice.reducer

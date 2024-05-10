@@ -1,12 +1,19 @@
 import React from 'react'
 import { FaBars } from 'react-icons/fa6'
 import Logo from '../logo/Logo'
+import { useDispatch } from 'react-redux'
+import { toggleMobileNav } from '@/features/generalSlice'
 
 const ChatMobileHeader = () => {
+  const dispatch = useDispatch()
+
   return (
     <header className='navbar border-b-[1px] bg-primary text-primary-content border-neutral md:hidden'>
       <div className='flex-none'>
-        <button className='btn btn-square btn-ghost'>
+        <button
+          className='btn btn-square btn-ghost hover:bg-accent'
+          onClick={() => dispatch(toggleMobileNav(true))}
+        >
           <FaBars />
         </button>
       </div>

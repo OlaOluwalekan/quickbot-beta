@@ -1,24 +1,16 @@
 'use client'
 
 import { changeTheme, toggleThemeOpen } from '@/features/generalSlice'
-import { RootState } from '@/store'
-import { ReactNode, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { ReactNode } from 'react'
+import { useDispatch } from 'react-redux'
 
 const ThemeIcon = ({ name, icon }: { name: string; icon: ReactNode }) => {
   const dispatch = useDispatch()
-  const { theme, themeIsOpen } = useSelector(
-    (store: RootState) => store.general
-  )
 
   const handleClick = (name: string) => {
     dispatch(changeTheme(name))
     dispatch(toggleThemeOpen(false))
   }
-
-  // useEffect(()=>{
-
-  // }, [theme])
 
   return (
     <li
