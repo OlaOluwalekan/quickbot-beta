@@ -9,6 +9,9 @@ const config: Config = {
   theme: {
     colors: {
       overlay: '#00000069',
+      'alert-error': 'hsl(0 84.2% 60.2%)',
+      error: '210 40% 98%',
+      'alert-success': '#10b981',
     },
     extend: {
       backgroundImage: {
