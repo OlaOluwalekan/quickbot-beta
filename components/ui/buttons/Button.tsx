@@ -9,6 +9,7 @@ interface buttonProps {
   text?: string
   iconSize?: string
   bg?: string
+  disabled?: boolean
 }
 const Button = ({
   type,
@@ -18,6 +19,7 @@ const Button = ({
   text,
   iconSize,
   bg = 'btn-primary',
+  disabled = false,
 }: buttonProps) => {
   const sizeClass = clsx({
     'w-[100px]': size === 'small',
@@ -27,7 +29,11 @@ const Button = ({
     'w-[70px] h-[70px]': size === 'square',
   })
   return (
-    <button className={clsx('btn', bg, sizeClass)} type={type}>
+    <button
+      className={clsx('btn', bg, sizeClass, disabled && 'cursor-not-allowed')}
+      type={type}
+      disabled={disabled}
+    >
       {hasIcon && <span className={clsx(iconSize)}>{icon}</span>}
       {text}
     </button>

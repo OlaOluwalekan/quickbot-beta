@@ -14,7 +14,7 @@ const Alert = ({ message, success }: respType) => {
       className={clsx(
         'alert text-sm px-2 py-1 rounded my-2 text-base-100 gap-x-1 flex justify-center',
         success
-          ? 'bg-alert-success/15 text-alert-success'
+          ? 'bg-alert-success/55 text-alert-success'
           : 'bg-alert-error/15 text-error'
       )}
     >

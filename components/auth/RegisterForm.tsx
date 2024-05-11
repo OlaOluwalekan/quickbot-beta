@@ -1,18 +1,11 @@
 'use client'
 
-import {
-  FaEnvelope,
-  FaExclamationTriangle,
-  FaTimesCircle,
-  FaUser,
-} from 'react-icons/fa'
+import { FaEnvelope, FaUser } from 'react-icons/fa'
 import InputWithIcon from '../ui/inputs/InputWithIcon'
 import { FaKey } from 'react-icons/fa6'
 import Button from '../ui/buttons/Button'
-import { register } from '@/utils/actions/auth'
-import { useState, useTransition } from 'react'
-import clsx from 'clsx'
-import { IoCheckmarkDoneCircle } from 'react-icons/io5'
+import { register } from '@/utils/actions/register'
+import { useEffect, useRef, useState, useTransition } from 'react'
 import Alert from '../alert/Alert'
 
 interface respType {
@@ -26,6 +19,7 @@ const RegisterForm = () => {
     message: '',
     success: false,
   })
+  const formRef = useRef<HTMLFormElement>(null)
 
   const handleSubmit = (formData: FormData) => {
     setResponse({ message: '', success: false })
@@ -37,8 +31,14 @@ const RegisterForm = () => {
     })
   }
 
+  useEffect(() => {
+    if (response.success) {
+      formRef.current?.reset()
+    }
+  }, [response])
+
   return (
-    <form action={handleSubmit}>
+    <form ref={formRef} action={handleSubmit}>
       <InputWithIcon
         type='email'
         placeholder='Email'
@@ -70,7 +70,12 @@ const RegisterForm = () => {
       {response.message && (
         <Alert message={response.message} success={response.success} />
       )}
-      <Button type='submit' size='full' text='Register' />
+      <Button
+        type='submit'
+        size='full'
+        text={isPending ? 'Loading...' : 'Register'}
+        disabled={isPending}
+      />
     </form>
   )
 }
