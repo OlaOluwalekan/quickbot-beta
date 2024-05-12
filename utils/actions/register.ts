@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { getUserByEmail } from '../data/user'
 import { db } from '@/lib/db'
 import bcrypt from 'bcryptjs'
+import { RegisterSchema } from '../schema'
 
 export const register = async (formData: FormData) => {
   const email = formData.get('email')
@@ -21,32 +22,11 @@ export const register = async (formData: FormData) => {
     return { message: 'Password is required', success: false }
   }
 
-  const User = z.object({
-    email: z.string().email(),
-    name: z.string().min(5, {
-      message: 'Name must be at least 5 characters',
-    }),
-    password: z
-      .string()
-      .min(8, {
-        message: 'Password must be at least 8 characters',
-      })
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/,
-        {
-          message:
-            'Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character',
-        }
-      ),
-    confirm: z.string(),
-  })
-
   try {
-    User.parse({ email, name, password, confirm })
+    RegisterSchema.parse({ email, name, password, confirm })
     if (password !== confirm) {
       return { message: 'Passwords do not match', success: false }
     }
-    // console.log(email, name, password, confirm)
 
     const existingUser = await getUserByEmail(email as string)
     if (existingUser) {

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactEventHandler, ReactNode } from 'react'
 
 interface inputProps {
   type: string
@@ -6,9 +6,21 @@ interface inputProps {
   icons: ReactNode
   name?: string
   id?: string
+  isControlled?: boolean
+  value?: string
+  onchange?: ReactEventHandler<HTMLInputElement>
 }
 
-const InputWithIcon = ({ type, placeholder, icons, name, id }: inputProps) => {
+const InputWithIcon = ({
+  type,
+  placeholder,
+  icons,
+  name,
+  id,
+  isControlled,
+  value,
+  onchange,
+}: inputProps) => {
   return (
     <label className='input input-bordered flex items-center gap-2 my-2'>
       <span className='input-icon text-primary'>{icons}</span>
@@ -18,6 +30,8 @@ const InputWithIcon = ({ type, placeholder, icons, name, id }: inputProps) => {
         placeholder={placeholder}
         name={name}
         id={id}
+        value={isControlled ? value : undefined}
+        onChange={onchange}
       />
     </label>
   )

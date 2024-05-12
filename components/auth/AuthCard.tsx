@@ -1,3 +1,5 @@
+'use client'
+
 import React, { ReactNode } from 'react'
 import Logo from '../logo/Logo'
 import Link from 'next/link'
