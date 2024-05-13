@@ -10,6 +10,7 @@ interface buttonProps {
   iconSize?: string
   bg?: string
   disabled?: boolean
+  handleClick?: () => void
 }
 const Button = ({
   type,
@@ -20,6 +21,7 @@ const Button = ({
   iconSize,
   bg = 'btn-primary',
   disabled = false,
+  handleClick,
 }: buttonProps) => {
   const sizeClass = clsx({
     'w-[100px]': size === 'small',
@@ -33,6 +35,7 @@ const Button = ({
       className={clsx('btn', bg, sizeClass, disabled && 'cursor-not-allowed')}
       type={type}
       disabled={disabled}
+      onClick={handleClick}
     >
       {hasIcon && <span className={clsx(iconSize)}>{icon}</span>}
       {text}

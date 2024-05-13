@@ -3,9 +3,19 @@ import Credentials from 'next-auth/providers/credentials'
 import { getUserByEmail } from './utils/data/user'
 import bcrypt from 'bcryptjs'
 import { LoginSchema } from './utils/schema'
+import Google from 'next-auth/providers/google'
+import Github from 'next-auth/providers/github'
 
 export default {
   providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    Github({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
     Credentials({
       async authorize(credentials) {
         const user = await getUserByEmail(credentials.email as string)

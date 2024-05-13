@@ -29,7 +29,7 @@ const ChatInput = () => {
       ></textarea>
       <button
         type='submit'
-        className='absolute top-0 bottom-0 m-auto right-2 bg-primary w-[30px] aspect-square rounded text-primary-content flex justify-center items-center hover:bg-accent'
+        className='absolute top-0 bottom-0 m-auto right-2 bg-primary w-[30px] h-[30px] rounded text-primary-content flex justify-center items-center hover:bg-accent'
       >
         <FaPaperPlane />
       </button>
