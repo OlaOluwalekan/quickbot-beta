@@ -4,6 +4,7 @@ import './globals.css'
 import StoreProvider from '@/providers/StoreProvider'
 import ThemeProvider from '@/providers/ThemeProvider'
 import Theme from '@/components/theme/Theme'
+import { SessionProvider } from 'next-auth/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,14 +19,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <StoreProvider>
-      <ThemeProvider>
-        <html lang='en'>
-          <body className={inter.className}>{children}
-          <Theme />
-          </body>
-        </html>
-      </ThemeProvider>
-    </StoreProvider>
+    <SessionProvider>
+      <StoreProvider>
+        <ThemeProvider>
+          <html lang='en'>
+            <body className={inter.className}>
+              {children}
+              <Theme />
+            </body>
+          </html>
+        </ThemeProvider>
+      </StoreProvider>
+    </SessionProvider>
   )
 }

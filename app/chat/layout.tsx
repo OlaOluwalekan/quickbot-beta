@@ -20,7 +20,7 @@ const layout = ({ children }: { children: ReactNode }) => {
         {mobileNavIsOpen && <MobileSideBar />}
         <div className='h-full w-full flex flex-col items-center bg-secondary'>
           <DesktopHeader>
-            <div className='h-full w-full flex flex-col items-center bg-base-100 md:rounded-lg md:mr-5'>
+            <div className='h-full w-full flex flex-col items-center bg-base-100 md:rounded-lg'>
               <section className='flex-grow'>{children}</section>
               <ChatInput />
             </div>

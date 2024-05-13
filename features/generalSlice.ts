@@ -8,12 +8,14 @@ interface stateProps {
   theme: string
   themeIsOpen: boolean
   mobileNavIsOpen: boolean
+  profileDialogIsOpen: boolean
 }
 
 const initialSate: stateProps = {
   theme: getFromLocalStorage('theme') || 'light',
   themeIsOpen: false,
   mobileNavIsOpen: false,
+  profileDialogIsOpen: false,
 }
 
 const generalSlice = createSlice({
@@ -30,10 +32,17 @@ const generalSlice = createSlice({
     toggleMobileNav: (state, { payload }) => {
       state.mobileNavIsOpen = payload
     },
+    toggleProfileDialog: (state, { payload }) => {
+      state.profileDialogIsOpen = payload
+    },
   },
 })
 
-export const { changeTheme, toggleThemeOpen, toggleMobileNav } =
-  generalSlice.actions
+export const {
+  changeTheme,
+  toggleThemeOpen,
+  toggleMobileNav,
+  toggleProfileDialog,
+} = generalSlice.actions
 
 export default generalSlice.reducer
