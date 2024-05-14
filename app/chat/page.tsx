@@ -5,13 +5,7 @@ import React from 'react'
 const ChatPage = async () => {
   const session = await auth()
 
-  return (
-    <div>
-      ChatPage
-      <p className='w-[300px] overflow-hidden'>{JSON.stringify(session)}</p>
-      <Logout />
-    </div>
-  )
+  return <div>ChatPage</div>
 }
 
 export default ChatPage

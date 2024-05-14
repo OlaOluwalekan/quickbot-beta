@@ -27,6 +27,7 @@ model User {
   password      String?
   role          UserRole  @default(USER)
   accounts      Account[]
+  conversation  Conversation[]
 }
 
 model Account {
@@ -46,4 +47,24 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  
   @@unique([provider, providerAccountId])
+}
+
+model Conversation {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  createdBy       String    @db.ObjectId
+  chat            Chat[]
+
+  user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}
+
+model Chat {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  conversationId  String    @db.ObjectId
+  question        String
+  response        String
+  createdAt       DateTime  @default(now())
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 }

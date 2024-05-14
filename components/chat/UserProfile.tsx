@@ -1,3 +1,5 @@
+'use client'
+
 import { toggleProfileDialog } from '@/features/generalSlice'
 import { RootState } from '@/store'
 import { useSession } from 'next-auth/react'

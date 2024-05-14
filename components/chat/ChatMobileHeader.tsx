@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { FaBars } from 'react-icons/fa6'
 import Logo from '../logo/Logo'

@@ -1,0 +1,38 @@
+'use server'
+
+import { db } from '@/lib/db'
+import { createConversation } from './conversation'
+import { getAIResponse } from './gemini'
+
+export const createChat = async (formData: FormData, page: string) => {
+  const text = formData.get('question')
+  const id = formData.get('id')
+  let conversationId
+
+  if (!text) {
+    return {
+      message: 'text is required',
+      success: false,
+      data: { conversationId },
+    }
+  }
+
+  if (page === '/chat') {
+    conversationId = await createConversation(id as string, text as string)
+  }
+
+  const response = await getAIResponse(text as string)
+  //   console.log('RESPONSE: ', response)
+  try {
+    await db.chat.create({
+      data: {
+        conversationId: conversationId as string,
+        question: text as string,
+        response: response as string,
+      },
+    })
+    return { success: true, message: 'chat created', data: { conversationId } }
+  } catch (error) {
+    console.log(error)
+  }
+}
