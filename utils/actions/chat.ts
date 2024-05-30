@@ -19,10 +19,12 @@ export const createChat = async (formData: FormData, page: string) => {
 
   if (page === '/chat') {
     conversationId = await createConversation(id as string, text as string)
+  } else {
+    conversationId = page.split('/').pop()
   }
 
   const response = await getAIResponse(text as string)
-  //   console.log('RESPONSE: ', response)
+  console.log('RESPONSE: ', response)
   try {
     await db.chat.create({
       data: {
@@ -32,6 +34,20 @@ export const createChat = async (formData: FormData, page: string) => {
       },
     })
     return { success: true, message: 'chat created', data: { conversationId } }
+  } catch (error) {
+    console.log(error)
+  }
+  return { success: true, message: 'chat created', data: { conversationId } }
+}
+
+export const getChats = async (id: string) => {
+  try {
+    const chats = await db.chat.findMany({
+      where: {
+        conversationId: id,
+      },
+    })
+    return chats
   } catch (error) {
     console.log(error)
   }

@@ -20,3 +20,18 @@ export const createConversation = async (userId: string, text: string) => {
     console.log(error)
   }
 }
+
+export const getConversations = async (userId: string) => {
+  try {
+    const conversations = await db.conversation.findMany({
+      where: {
+        createdBy: userId,
+      },
+    })
+    // console.log('NEWEST', userId, conversations)
+
+    return conversations
+  } catch (error) {
+    console.log(error)
+  }
+}

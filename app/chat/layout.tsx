@@ -19,7 +19,9 @@ const layout = async ({ children }: { children: ReactNode }) => {
         <div className='h-full w-full flex flex-col items-center bg-secondary'>
           <DesktopHeader>
             <div className='h-full w-full flex flex-col items-center bg-base-100 md:rounded-lg'>
-              <section className='flex-grow'>{children}</section>
+              <section className='grow w-[90%] h-[calc(100vh-150px)] overflow-auto'>
+                {children}
+              </section>
               <ChatInput userId={session?.user?.id as string} />
             </div>
           </DesktopHeader>
