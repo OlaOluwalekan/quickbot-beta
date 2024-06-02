@@ -9,6 +9,8 @@ interface stateProps {
   themeIsOpen: boolean
   mobileNavIsOpen: boolean
   profileDialogIsOpen: boolean
+  isLoading: boolean
+  conversationIds: string[]
 }
 
 const initialSate: stateProps = {
@@ -16,6 +18,8 @@ const initialSate: stateProps = {
   themeIsOpen: false,
   mobileNavIsOpen: false,
   profileDialogIsOpen: false,
+  isLoading: false,
+  conversationIds: [],
 }
 
 const generalSlice = createSlice({
@@ -35,6 +39,12 @@ const generalSlice = createSlice({
     toggleProfileDialog: (state, { payload }) => {
       state.profileDialogIsOpen = payload
     },
+    toggleLoading: (state, { payload }: { payload: boolean }) => {
+      state.isLoading = payload
+    },
+    addConversationId: (state, { payload }: { payload: string }) => {
+      state.conversationIds.push(payload)
+    },
   },
 })
 
@@ -43,6 +53,8 @@ export const {
   toggleThemeOpen,
   toggleMobileNav,
   toggleProfileDialog,
+  toggleLoading,
+  addConversationId,
 } = generalSlice.actions
 
 export default generalSlice.reducer

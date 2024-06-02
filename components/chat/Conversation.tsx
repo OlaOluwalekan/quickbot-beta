@@ -1,6 +1,8 @@
-import { toggleMobileNav } from '@/features/generalSlice'
+import { addConversationId, toggleMobileNav } from '@/features/generalSlice'
+import { deleteConversation } from '@/utils/actions/conversation'
+import clsx from 'clsx'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import {
   FaDotCircle,
@@ -20,11 +22,19 @@ const Conversation = ({ title, id }: conversationProps) => {
 
   return (
     <div>
-      <div className='my-1 flex items-center gap-5 hover:bg-accent'>
+      <div
+        className={clsx(
+          'my-1 w-full flex items-center justify-between gap-5 hover:bg-accent',
+          window.location.pathname.split('/').pop() === id ? 'bg-accent' : ''
+        )}
+      >
         <Link
           href={`/chat/${id}`}
           className='whitespace-nowrap overflow-auto leading-10 px-2'
-          onClick={() => dispatch(toggleMobileNav(false))}
+          onClick={() => {
+            dispatch(toggleMobileNav(false))
+            dispatch(addConversationId(id))
+          }}
         >
           {title}
         </Link>
@@ -33,7 +43,7 @@ const Conversation = ({ title, id }: conversationProps) => {
         </span>
       </div>
       {showPopup && (
-        <div className='absolute top-0 left-0 w-screen h-screen bg-overlay flex justify-center items-center'>
+        <div className='absolute top-0 left-0 w-screen h-screen bg-overlay flex justify-center items-center z-30'>
           <div className='w-[90%] max-w-[400px] rounded-lg relative py-10 flex flex-col items-center bg-primary'>
             <span
               className='absolute top-3 right-3 cursor-pointer'
@@ -54,7 +64,10 @@ const Conversation = ({ title, id }: conversationProps) => {
               <button className='px-5 py-2' onClick={() => setShowPopup(false)}>
                 Cancel
               </button>
-              <button className='bg-alert-error px-5 py-2 rounded'>
+              <button
+                className='bg-alert-error px-5 py-2 rounded'
+                onClick={() => deleteConversation(id)}
+              >
                 Delete
               </button>
             </article>

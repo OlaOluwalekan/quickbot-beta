@@ -1,15 +1,18 @@
 'use client'
 
+import { addConversationId, toggleLoading } from '@/features/generalSlice'
 import { createChat } from '@/utils/actions/chat'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useRef, useTransition } from 'react'
+import { useEffect, useRef, useTransition } from 'react'
 import { FaPaperPlane } from 'react-icons/fa6'
+import { useDispatch } from 'react-redux'
 
 const ChatInput = ({ userId }: { userId: string }) => {
   const textRef = useRef<HTMLTextAreaElement>(null)
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const handleChange = () => {
     if (textRef.current) {
@@ -24,12 +27,20 @@ const ChatInput = ({ userId }: { userId: string }) => {
 
   const handleSubmit = async (formData: FormData) => {
     // console.log(window.location.pathname)
+    dispatch(toggleLoading(true))
     startTransition(() => {
       createChat(formData, window.location.pathname).then((res) => {
-        console.log(res)
+        // console.log(res)
+        if (res.success) {
+          if (textRef.current) {
+            dispatch(addConversationId(res.data.conversationId))
+            textRef.current.value = ''
+          }
+        }
         if (res?.data.conversationId && window.location.pathname === '/chat') {
           router.push(`/chat/${res.data.conversationId}`)
         }
+        dispatch(toggleLoading(false))
       })
     })
   }

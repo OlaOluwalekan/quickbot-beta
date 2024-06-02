@@ -3,6 +3,7 @@
 import { db } from '@/lib/db'
 import { createConversation } from './conversation'
 import { getAIResponse } from './gemini'
+import { revalidatePath } from 'next/cache'
 
 export const createChat = async (formData: FormData, page: string) => {
   const text = formData.get('question')
@@ -24,7 +25,7 @@ export const createChat = async (formData: FormData, page: string) => {
   }
 
   const response = await getAIResponse(text as string)
-  console.log('RESPONSE: ', response)
+  // console.log('RESPONSE: ', response)
   try {
     await db.chat.create({
       data: {
@@ -33,9 +34,26 @@ export const createChat = async (formData: FormData, page: string) => {
         response: response as string,
       },
     })
+
+    await db.conversation.update({
+      where: {
+        id: conversationId as string,
+      },
+      data: {
+        updatedAt: new Date(),
+      },
+    })
+
+    revalidatePath('/chat')
+    revalidatePath(`/chat/${conversationId}`)
     return { success: true, message: 'chat created', data: { conversationId } }
   } catch (error) {
     console.log(error)
+    return {
+      success: false,
+      message: JSON.stringify(error),
+      data: { conversationId },
+    }
   }
   return { success: true, message: 'chat created', data: { conversationId } }
 }

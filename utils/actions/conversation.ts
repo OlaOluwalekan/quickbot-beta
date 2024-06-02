@@ -2,6 +2,7 @@
 
 import { db } from '@/lib/db'
 import { getAIResponse } from './gemini'
+import { revalidatePath } from 'next/cache'
 
 export const createConversation = async (userId: string, text: string) => {
   const title = await getAIResponse(
@@ -15,6 +16,7 @@ export const createConversation = async (userId: string, text: string) => {
         createdBy: userId,
       },
     })
+    revalidatePath('/chat/')
     return res.id
   } catch (error) {
     console.log(error)
@@ -27,10 +29,37 @@ export const getConversations = async (userId: string) => {
       where: {
         createdBy: userId,
       },
+      orderBy: {
+        updatedAt: 'desc',
+      },
     })
     // console.log('NEWEST', userId, conversations)
 
     return conversations
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getConversation = async (id: string) => {
+  try {
+    return await db.conversation.findUnique({
+      where: {
+        id,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteConversation = async (id: string) => {
+  try {
+    await db.conversation.delete({
+      where: {
+        id,
+      },
+    })
   } catch (error) {
     console.log(error)
   }

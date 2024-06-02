@@ -1,5 +1,6 @@
 import { getChats } from '@/utils/actions/chat'
 import ChatList from '@/components/chat/ChatList'
+import { getConversation } from '@/utils/actions/conversation'
 
 interface chatProp {
   id: string
@@ -13,12 +14,13 @@ interface paramsProp {
 
 const SingleChatPage = async ({ params }: { params: paramsProp }) => {
   const chats: any = await getChats(params.chatId)
+  const conversation = await getConversation(params.chatId)
 
-  console.log(chats)
+  console.log(conversation)
 
   return (
-    <div>
-      <h1 className='text-2xl text-base-content'>{params?.chatId}</h1>
+    <div className='h-full'>
+      <h1 className='text-lg py-2 text-base-content'>{conversation?.title}</h1>
       <ChatList data={chats} />
     </div>
   )
