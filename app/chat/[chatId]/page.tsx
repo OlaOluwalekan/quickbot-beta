@@ -16,7 +16,7 @@ const SingleChatPage = async ({ params }: { params: paramsProp }) => {
   const chats: any = await getChats(params.chatId)
   const conversation = await getConversation(params.chatId)
 
-  console.log(conversation)
+  // console.log(conversation)
 
   return (
     <div className='h-full'>

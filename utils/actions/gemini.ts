@@ -28,7 +28,7 @@ const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string)
 
 export const getAIResponse = async (message: string) => {
   try {
-    const model = ai.getGenerativeModel({ model: 'gemini-pro' })
+    const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' })
     const response = model.generateContent(message)
     const result = (await response).response
     return result.text()
@@ -39,4 +39,29 @@ export const getAIResponse = async (message: string) => {
 
 export const generatePrompts = async () => {
   return prompts
+}
+
+export const getAdvancedAIResponse = async (
+  message: string,
+  history: any[] = []
+) => {
+  // console.log('HISTORY: ', history)
+
+  try {
+    const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    const chat = model.startChat({
+      history,
+      generationConfig: {
+        maxOutputTokens: 100,
+      },
+    })
+
+    const result = await chat.sendMessage(message)
+    const response = await result.response
+    const text = response.text()
+    // console.log('ADVANCED: ', text)
+    return text
+  } catch (error) {
+    console.log(error)
+  }
 }

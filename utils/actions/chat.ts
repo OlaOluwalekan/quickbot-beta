@@ -2,13 +2,14 @@
 
 import { db } from '@/lib/db'
 import { createConversation } from './conversation'
-import { getAIResponse } from './gemini'
+import { getAIResponse, getAdvancedAIResponse } from './gemini'
 import { revalidatePath } from 'next/cache'
 
 export const createChat = async (formData: FormData, page: string) => {
   const text = formData.get('question')
   const id = formData.get('id')
   let conversationId
+  let history: any[] = []
 
   if (!text) {
     return {
@@ -22,9 +23,21 @@ export const createChat = async (formData: FormData, page: string) => {
     conversationId = await createConversation(id as string, text as string)
   } else {
     conversationId = page.split('/').pop()
+    const chats = await getChats(conversationId as string)
+    chats?.forEach((chat) => {
+      let first = {
+        role: 'user',
+        parts: [{ text: chat.question }],
+      }
+      let second = {
+        role: 'model',
+        parts: [{ text: chat.response }],
+      }
+      history.push(first, second)
+    })
   }
 
-  const response = await getAIResponse(text as string)
+  const response = await getAdvancedAIResponse(text as string, history)
   // console.log('RESPONSE: ', response)
   try {
     await db.chat.create({
