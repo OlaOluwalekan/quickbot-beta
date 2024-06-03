@@ -1,11 +1,14 @@
 import { auth } from '@/auth'
-import Logout from '@/components/auth/Logout'
-import React from 'react'
+import TemplatePrompts from '@/components/chat/TemplatePrompts'
 
 const ChatPage = async () => {
   const session = await auth()
 
-  return <div>ChatPage</div>
+  return (
+    <div className='flex flex-col justify-center items-center h-full'>
+      <TemplatePrompts />
+    </div>
+  )
 }
 
 export default ChatPage
