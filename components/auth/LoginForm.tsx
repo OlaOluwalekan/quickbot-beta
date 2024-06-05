@@ -34,6 +34,9 @@ const LoginForm = () => {
     startTransition(() => {
       login(formData).then((res) => {
         setResponse(res)
+        if (res.message === 'email not verified') {
+          router.push('/verify')
+        }
         if (res.success) {
           router.push('/chat')
         }

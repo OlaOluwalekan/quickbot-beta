@@ -6,12 +6,15 @@ import {
   authRoutes,
   publicRoutes,
 } from './routes-deff'
+import { getUserByEmail, getUserById } from './utils/data/user'
 
 const { auth } = NextAuth(authConfig)
 
-export default auth((req) => {
+export default auth(async (req) => {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
+
+  // console.log('TEST', nextUrl.pathname, isLoggedIn)
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname)

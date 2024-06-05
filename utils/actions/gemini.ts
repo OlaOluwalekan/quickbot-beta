@@ -51,9 +51,6 @@ export const getAdvancedAIResponse = async (
     const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' })
     const chat = model.startChat({
       history,
-      generationConfig: {
-        maxOutputTokens: 100,
-      },
     })
 
     const result = await chat.sendMessage(message)

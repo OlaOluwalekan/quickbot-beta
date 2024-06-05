@@ -5,6 +5,8 @@ import { getUserByEmail } from '../data/user'
 import { db } from '@/lib/db'
 import bcrypt from 'bcryptjs'
 import { RegisterSchema } from '../schema'
+import { generateVerificationToken } from './token'
+import { sendVerificationEmail } from '../emails/verificationEmail'
 
 export const register = async (formData: FormData) => {
   const email = formData.get('email')
@@ -42,6 +44,11 @@ export const register = async (formData: FormData) => {
         password: hashedPassword,
       },
     })
+
+    const verificationToken = await generateVerificationToken(email as string)
+
+    // TODO: SEND VERIFICATION EMAIL
+    sendVerificationEmail(email as string, verificationToken.token)
 
     return { message: 'account created successfully', success: true }
   } catch (error: any) {

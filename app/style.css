@@ -1,3 +1,17 @@
 ::-webkit-scrollbar {
   height: 1px;
 }
+
+/* .markdown pre > code {
+  display: block;
+  overflow: auto;
+}
+
+.markdown ul {
+  list-style: disc;
+  padding: 10px;
+} */
+
+/* .markdown :not(pre) {
+  padding: 10px;
+} */

@@ -1,14 +1,20 @@
 import { formatDate } from '@/utils/date-format'
+import { marked } from 'marked'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { FaUserCircle } from 'react-icons/fa'
 import { FaRobot } from 'react-icons/fa6'
-import Markdown from 'react-markdown'
+import htmlParser from 'html-react-parser'
+import ChatMD from './ChatMD'
 
 interface chatProps {
   question: string
   response: string
   createdAt: string
+}
+
+const markdownToHTML = (markdown: string) => {
+  return marked(markdown)
 }
 
 const Chat = ({ question, response, createdAt }: chatProps) => {
@@ -17,7 +23,9 @@ const Chat = ({ question, response, createdAt }: chatProps) => {
   const dateNowObj = formatDate(new Date().toISOString())
   let dateCreated = `${dateCreatedObj.month} ${dateCreatedObj.date} ${dateCreatedObj.year} at ${dateCreatedObj.time}`
 
-  console.log('CHAT SESSION: ', session)
+  const htmlContent = markdownToHTML(response)
+
+  // console.log(htmlContent)
 
   if (
     dateCreatedObj.date === dateNowObj.date &&
@@ -75,10 +83,6 @@ const Chat = ({ question, response, createdAt }: chatProps) => {
       <div className='chat chat-start'>
         <div className='chat-image avatar'>
           <div className='w-10 rounded-full flex justify-center items-center'>
-            {/* <img
-              alt='Tailwind CSS chat bubble component'
-              src='https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg'
-            /> */}
             <FaRobot className='text-4xl' />
           </div>
         </div>
@@ -86,8 +90,8 @@ const Chat = ({ question, response, createdAt }: chatProps) => {
           Quickbot
           <time className='text-xs opacity-50 ml-2'>{dateCreated}</time>
         </div>
-        <div className='chat-bubble chat-bubble-secondary min-w-[300px]'>
-          <Markdown>{response}</Markdown>
+        <div className='markdown chat-bubble chat-bubble-secondary min-w-[300px] whitespace-pre-wrap break-words'>
+          <ChatMD response={response} />
         </div>
         <div className='chat-footer opacity-50'>Seen at 12:46</div>
       </div>

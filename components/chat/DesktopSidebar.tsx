@@ -3,7 +3,7 @@ import NavDiv from './NavDiv'
 
 const DesktopSidebar = () => {
   return (
-    <div className='hidden md:flex w-[300px] bg-primary text-base-100'>
+    <div className='hidden w-[300px] bg-primary text-base-100 md:flex'>
       <NavDiv />
     </div>
   )

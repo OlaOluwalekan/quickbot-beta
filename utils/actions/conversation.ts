@@ -60,6 +60,7 @@ export const deleteConversation = async (id: string) => {
         id,
       },
     })
+    revalidatePath('/chat/')
   } catch (error) {
     console.log(error)
   }

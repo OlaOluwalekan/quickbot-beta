@@ -5,3 +5,24 @@ const chat = {
   response: "**Next.js Application Creation Steps:**\n'",
   createdAt: '2024-05-14T15:17:22.568Z',
 }
+
+const node = {
+  type: 'element',
+  tagName: 'p',
+  properties: {},
+  children: [
+    {
+      type: 'text',
+      value:
+        'Now, your component will display the formatted date and time in a readable format.',
+      position: {
+        start: { line: 81, column: 1, offset: 3060 },
+        end: { line: 81, column: 83, offset: 3142 },
+      },
+    },
+  ],
+  position: {
+    start: { line: 81, column: 1, offset: 3060 },
+    end: { line: 81, column: 83, offset: 3142 },
+  },
+}

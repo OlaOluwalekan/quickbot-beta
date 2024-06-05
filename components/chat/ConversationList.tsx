@@ -6,16 +6,21 @@ import { useEffect, useState, useTransition } from 'react'
 import Conversation from './Conversation'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
+import ConversationMenu from './ConversationMenu'
 
 const ConversationList = () => {
   const session = useSession()
   const [isPending, startTransition] = useTransition()
   const [conversations, setConversations] = useState<any>([])
-  const { conversationIds } = useSelector((store: RootState) => store.general)
+  const { conversationIds, conversationMenuIsOpen } = useSelector(
+    (store: RootState) => store.general
+  )
 
   useEffect(() => {
-    const storedConversation =
-      JSON.parse(localStorage.getItem('conversations') as string) || []
+    const rawConversations = localStorage.getItem('conversations') || '[]'
+    console.log('RAW: ', rawConversations)
+
+    const storedConversation = JSON.parse(rawConversations) || []
     setConversations(storedConversation)
   }, [])
 
@@ -38,10 +43,13 @@ const ConversationList = () => {
   }
 
   return (
-    <div className='flex-grow w-full overflow-hidden'>
-      {conversations.map((conversation: any) => {
-        return <Conversation key={conversation.id} {...conversation} />
-      })}
+    <div className='flex-grow relative overflow-hidden flex justify-center items-center'>
+      <div className='h-[calc(100vh-120px)] w-300px overflow-auto'>
+        {conversations.map((conversation: any) => {
+          return <Conversation key={conversation.id} {...conversation} />
+        })}
+      </div>
+      {/* {conversationMenuIsOpen && <ConversationMenu />} */}
     </div>
   )
 }

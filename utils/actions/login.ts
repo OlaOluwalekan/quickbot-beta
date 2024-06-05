@@ -4,6 +4,8 @@ import { signIn } from '@/auth'
 import { LoginSchema } from '../schema'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes-deff'
 import { AuthError } from 'next-auth'
+import { getUserByEmail } from '../data/user'
+import { redirect } from 'next/navigation'
 
 export const login = async (formData: FormData) => {
   const email = formData.get('email')
@@ -15,6 +17,13 @@ export const login = async (formData: FormData) => {
 
   if (!password) {
     return { message: 'password is required', success: false }
+  }
+
+  const existingUser = await getUserByEmail(email as string)
+
+  // console.log(existingUser)
+  if (!existingUser?.emailVerified) {
+    return { message: 'email not verified', success: false }
   }
 
   try {

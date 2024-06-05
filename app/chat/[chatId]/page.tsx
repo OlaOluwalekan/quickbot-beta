@@ -20,7 +20,9 @@ const SingleChatPage = async ({ params }: { params: paramsProp }) => {
 
   return (
     <div className='h-full'>
-      <h1 className='text-lg py-2 text-base-content'>{conversation?.title}</h1>
+      <h1 className='text-lg py-2 text-base-content whitespace-nowrap overflow-auto'>
+        {conversation?.title}
+      </h1>
       <ChatList data={chats} />
     </div>
   )
