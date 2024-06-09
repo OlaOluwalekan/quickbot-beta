@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { ReactEventHandler, ReactNode } from 'react'
 
 interface inputProps {
@@ -9,6 +10,7 @@ interface inputProps {
   isControlled?: boolean
   value?: string
   onchange?: ReactEventHandler<HTMLInputElement>
+  readonly?: boolean
 }
 
 const InputWithIcon = ({
@@ -20,9 +22,15 @@ const InputWithIcon = ({
   isControlled,
   value,
   onchange,
+  readonly,
 }: inputProps) => {
   return (
-    <label className='input input-bordered flex items-center gap-2 my-2'>
+    <label
+      className={clsx(
+        'input input-bordered flex items-center gap-2 my-2',
+        type === 'hidden' && 'hidden'
+      )}
+    >
       <span className='input-icon text-primary'>{icons}</span>
       <input
         type={type}
@@ -32,6 +40,7 @@ const InputWithIcon = ({
         id={id}
         value={isControlled ? value : undefined}
         onChange={onchange}
+        readOnly={readonly}
       />
     </label>
   )
