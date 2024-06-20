@@ -33,7 +33,7 @@ const CustomP: React.FC<CustomProps> = ({ children, node }) => {
 const ChatMD = ({ response }: { response: string }) => {
   return (
     <ReactMarkdown
-      children={response}
+      // children={response}
       remarkPlugins={[remarkGfm]}
       components={{
         code({ inline, className, children, ...props }: CodeProps) {
@@ -98,7 +98,9 @@ const ChatMD = ({ response }: { response: string }) => {
           )
         },
       }}
-    />
+    >
+      {response}
+    </ReactMarkdown>
   )
 }
 

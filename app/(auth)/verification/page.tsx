@@ -1,9 +1,12 @@
 import VerificationForm from '@/components/chat/VerificationForm'
+import { Suspense } from 'react'
 
 const VerificationPage = async () => {
   return (
     <div>
-      <VerificationForm />
+      <Suspense>
+        <VerificationForm />
+      </Suspense>
     </div>
   )
 }
